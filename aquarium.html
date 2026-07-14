@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Aquarium</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Elsie&family=Mulish:wght@400;600&family=Raleway:wght@500;700&display=swap" rel="stylesheet">
+    
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+            /* Beautiful deep pastel water gradient */
+            background: linear-gradient(180deg, #c4d7e8 0%, #89aacc 100%);
+            font-family: 'Mulish', sans-serif;
+            cursor: crosshair; /* Encourages clicking! */
+        }
+
+        /* Animated Water Reflections */
+        .water-overlay {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: repeating-linear-gradient(
+                0deg,
+                transparent,
+                transparent 20px,
+                rgba(255,255,255,0.15) 20px,
+                rgba(255,255,255,0.15) 40px
+            );
+            pointer-events: none;
+            animation: waterMove 20s linear infinite;
+            z-index: 2;
+        }
+
+        @keyframes waterMove {
+            from { background-position: 0 0; }
+            to { background-position: 0 100px; }
+        }
+
+        /* The Sand Floor */
+        .sand-bottom {
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            height: 100px;
+            background: #dfa974;
+            border-top: 6px dashed rgba(255,255,255,0.3);
+            z-index: 3;
+        }
+
+        /* Instructions that fade out */
+        .hint-text {
+            position: absolute;
+            top: 40%;
+            width: 100%;
+            text-align: center;
+            font-family: 'Elsie', serif;
+            font-size: 3rem;
+            color: rgba(255,255,255,0.7);
+            pointer-events: none;
+            animation: fadeOut 4s ease forwards;
+            animation-delay: 2s;
+            z-index: 1;
+        }
+
+        @keyframes fadeOut {
+            0% { opacity: 0.7; transform: translateY(0); }
+            100% { opacity: 0; transform: translateY(-20px); }
+        }
+
+        /* The Fish ecosystem */
+        .fish {
+            position: absolute;
+            top: 0; left: 0;
+            color: #ffbd2e; 
+            filter: drop-shadow(0 8px 12px rgba(0,0,0,0.15));
+            animation: wiggle 1.5s ease-in-out infinite;
+            z-index: 10;
+        }
+
+        /* Scaled up fish varieties for the full screen */
+        .standard-fish { font-size: 3.5rem; }
+        .pink-fish { color: #db8b95; font-size: 3rem; animation-delay: 0.2s;}
+        .green-fish { color: #94bc8d; font-size: 4.5rem; animation-delay: 0.5s;}
+        .tiny-fish { color: #f5f0ce; font-size: 2rem; animation-duration: 0.8s; }
+
+        @keyframes wiggle {
+            0%, 100% { margin-top: 0px; }
+            50% { margin-top: -8px; }
+        }
+
+        /* Fish Food */
+        .fish-food {
+            position: absolute;
+            width: 15px;
+            height: 15px;
+            background: #8b5a2b; 
+            border-radius: 50%;
+            z-index: 5;
+            animation: sink 4s linear forwards;
+            pointer-events: none;
+        }
+
+        @keyframes sink {
+            0% { transform: translateY(0); opacity: 1; }
+            80% { opacity: 1; }
+            100% { transform: translateY(100vh); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="water-overlay"></div>
+    <div class="sand-bottom"></div>
+    <div class="hint-text">Click to feed the fish!</div>
+
+    <script>
+        const container = document.body;
+        const fishCount = 15; // Lots of fish for the big tank!
+        const fishes = [];
+        const fishTypes = ['fish standard-fish', 'fish pink-fish', 'fish green-fish', 'fish tiny-fish'];
+
+        // Spawn the fish
+        for (let i = 0; i < fishCount; i++) {
+            let fishEl = document.createElement('i');
+            fishEl.className = 'fas fa-fish ' + fishTypes[Math.floor(Math.random() * fishTypes.length)];
+            container.appendChild(fishEl);
+
+            fishes.push({
+                el: fishEl,
+                x: Math.random() * (window.innerWidth - 100),
+                y: Math.random() * (window.innerHeight - 150),
+                tx: Math.random() * window.innerWidth,
+                ty: Math.random() * (window.innerHeight - 150),
+                speed: 1 + Math.random() * 2, // Faster speeds for the big screen
+                isEating: false
+            });
+        }
+
+        // Drop Food on Click
+        container.addEventListener('mousedown', (e) => {
+            const clickX = e.clientX;
+            const clickY = e.clientY;
+
+            let foodEl = document.createElement('div');
+            foodEl.className = 'fish-food';
+            foodEl.style.left = (clickX - 7) + 'px'; // Center food on cursor
+            foodEl.style.top = clickY + 'px';
+            container.appendChild(foodEl);
+
+            // Alert the fish!
+            fishes.forEach(f => {
+                if (Math.random() > 0.3) {
+                    f.tx = clickX - 25; 
+                    f.ty = clickY + (Math.random() * 150); 
+                    f.isEating = true;
+                }
+            });
+
+            setTimeout(() => {
+                if(foodEl.parentNode) foodEl.remove();
+            }, 4000);
+        });
+
+        // The swimming animation loop
+        function animateFish() {
+            const width = window.innerWidth;
+            const height = window.innerHeight;
+
+            fishes.forEach(f => {
+                let dx = f.tx - f.x;
+                let dy = f.ty - f.y;
+                let dist = Math.sqrt(dx*dx + dy*dy);
+
+                if (dist < 20) {
+                    f.isEating = false;
+                    f.tx = Math.random() * (width - 100) + 20;
+                    f.ty = Math.random() * (height - 150) + 20;
+                } else {
+                    f.x += (dx / dist) * f.speed;
+                    f.y += (dy / dist) * f.speed;
+                }
+
+                let flip = dx > 0 ? 'scaleX(-1)' : 'scaleX(1)';
+                f.el.style.transform = `translate(${f.x}px, ${f.y}px) ${flip}`;
+            });
+
+            requestAnimationFrame(animateFish);
+        }
+        animateFish();
+    </script>
+</body>
+</html>

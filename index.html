@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Notebook</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Elsie&family=Mulish:wght@400;600&family=Raleway:wght@500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    
+    <div id="intro-screen" class="hero-section">
+        <div class="floating-assets">
+            <img src="assets/bunny.png" class="deco deco-1" alt="Bunny">
+            <img src="assets/candy.png" class="deco deco-2" alt="Candy">
+            <img src="assets/stars.png" class="deco deco-3" alt="Stars">
+            <img src="assets/bunny.png" class="deco deco-4" alt="Bunny">
+            <img src="assets/candy.png" class="deco deco-5" alt="Candy">
+            <img src="assets/stars.png" class="deco deco-6" alt="Stars">
+        </div>
+
+        <div class="title-wrapper">
+            <span class="sparkle s1">✦</span>
+            <span class="sparkle s2">✧</span>
+            <h1 class="giant-title">my notebook</h1>
+            <span class="sparkle s3">✦</span>
+            <span class="sparkle s4">✧</span>
+        </div>
+        <button id="enter-btn" class="enter-btn" type="button">open notebook <span>✦</span></button>
+    </div>
+
+    <nav class="sticker-board" id="main-nav" style="display: none;">
+        <a href="/" class="sticker tag-pink">Home</a>
+        <a href="#" id="nav-desktop" class="sticker tag-green">Desktop</a>
+        <a href="#" id="nav-cool-stuff" class="sticker tag-blue">Cool Stuff</a>
+        <a href="#" id="nav-aquarium" class="sticker tag-purple">Aquarium</a>
+    </nav>
+
+    <main id="desktop" class="desktop-environment hidden">
+        
+        <div class="desktop-icons">
+            <div class="icon" tabindex="0" id="projects-icon">
+                <i class="fas fa-folder icon-graphic"></i>
+                <span>Projects</span>
+            </div>
+            <div class="icon" tabindex="0">
+                <i class="fas fa-image icon-graphic"></i>
+                <span>Gallery</span>
+            </div>
+            <div class="icon" tabindex="0">
+                <i class="fas fa-star icon-graphic"></i>
+                <span>Favorites</span>
+            </div>
+        </div>
+
+        <div class="os-window main-window" id="window1">
+            <div class="title-bar" id="window1-header">
+                <div class="window-controls">
+                    <div class="control red"></div>
+                    <div class="control yellow"></div>
+                    <div class="control green"></div>
+                </div>
+                <div class="title-text">my-corner.html</div>
+                <div class="spacer"></div>
+            </div>
+            <div class="window-content">
+                <div class="content-header">
+                    <h2>Welcome to my desktop</h2>
+                    <p>Just a casual little space for my favorite things and bits of inspiration.</p>
+                </div>
+                <div class="placeholder-image">
+                    <span>art goes here</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="os-window player-window" id="window2">
+            <div class="title-bar" id="window2-header">
+                <div class="window-controls">
+                    <div class="control red"></div>
+                    <div class="control yellow"></div>
+                    <div class="control green"></div>
+                </div>
+                <div class="title-text">MINIPLAY</div>
+                <div class="spacer"></div>
+            </div>
+            <div class="player-content">
+                <div class="album-art"><i class="fas fa-music"></i></div>
+                <div class="track-info">
+                    <h4>Starlight Lullaby</h4>
+                    <p>Dreamy Mix</p>
+                </div>
+                <div class="player-controls">
+                    <i class="fas fa-backward"></i>
+                    <i class="fas fa-pause-circle play-btn" id="music-toggle"></i>
+                    <i class="fas fa-forward"></i>
+                </div>
+            </div>
+            <div class="progress-bar">
+                <div class="progress"></div>
+            </div>
+        </div>
+
+        <div class="os-window model-window" id="window3">
+            <div class="title-bar" id="window3-header">
+                <div class="window-controls">
+                    <div class="control red"></div>
+                    <div class="control yellow"></div>
+                    <div class="control green"></div>
+                </div>
+                <div class="title-text">DOODLE_PAD.exe</div>
+                <div class="spacer"></div>
+            </div>
+            <div class="window-content doodle-wrapper">
+                <canvas id="doodle-canvas"></canvas>
+                <div class="doodle-toolbar">
+                    <div class="slider-container" title="Adjust Pen Size">
+                        <i class="fas fa-circle dot-small"></i>
+                        <input type="range" id="pen-size" min="1" max="40" value="5">
+                        <i class="fas fa-circle dot-large"></i>
+                    </div>
+                    <div class="color-palette">
+                        <div class="swatch active" style="background: #db8b95;" data-color="#db8b95"></div>
+                        <div class="swatch" style="background: #dfa974;" data-color="#dfa974"></div>
+                        <div class="swatch" style="background: #94bc8d;" data-color="#94bc8d"></div>
+                        <div class="swatch" style="background: #89aacc;" data-color="#89aacc"></div>
+                        <div class="swatch" style="background: #b099c7;" data-color="#b099c7"></div>
+                        <div class="swatch" style="background: #5c4f4f;" data-color="#5c4f4f"></div>
+                        <div class="swatch eraser-swatch" title="Eraser Tool" id="eraser-tool">
+                            <i class="fas fa-eraser"></i>
+                        </div>
+                    </div>
+                    <i class="fas fa-trash-alt clear-btn" id="clear-canvas" title="Clear Canvas"></i>
+                </div>
+            </div>
+        </div>
+
+        <div class="os-window explorer-window" id="window4" style="display: none;">
+            <div class="title-bar" id="window4-header">
+                <div class="window-controls">
+                    <div class="control red close-btn" id="close-projects"></div>
+                    <div class="control yellow"></div>
+                    <div class="control green"></div>
+                </div>
+                <div class="title-text">~/Desktop/Projects</div>
+                <div class="spacer"></div>
+            </div>
+            <div class="explorer-content">
+                <div class="explorer-grid">
+                    <div class="project-item" data-title="sky-cavern" data-desc="An Atari inspired shooter game I created as a Father's Day present for my dad!" data-link="https://github.com/botW-programmer/Sky-Cavern">
+                        <i class="fas fa-gamepad folder-icon pink-icon"></i>
+                        <span>sky-cavern</span>
+                    </div>
+                    <div class="project-item" data-title="holmes" data-desc="HOLMES is a client-side digital forensics platform designed for zero-knowledge data analysis, enabling investigators to perform disk carving, network topology mapping, and steganography detection directly within a secure browser environment." data-link="https://github.com/botW-programmer/HOLMES">
+                        <i class="fas fa-user-secret folder-icon green-icon"></i>
+                        <span>holmes</span>
+                    </div>
+                    <div class="project-item" data-title="pixel todo" data-desc="A cute desktop widget that's always running! Save your tasks here locally and come back to them whenever necessary!" data-link="https://github.com/botW-programmer/pixel-todo-widget">
+                        <i class="fas fa-check-square folder-icon blue-icon"></i>
+                        <span>pixel todo</span>
+                    </div>
+                    <div class="project-item" data-title="sprout" data-desc="Sprout is your best friend who lives right on your desktop! When you forget to take breaks, he gets sad and begins to droop, but whenever you remember, he sprouts back up!" data-link="https://github.com/botW-programmer/sprout">
+                        <i class="fas fa-seedling folder-icon yellow-icon"></i>
+                        <span>sprout</span>
+                    </div>
+                </div>
+                
+                <div class="preview-pane" id="project-preview">
+                    <div class="preview-empty" id="preview-empty">
+                        <i class="fas fa-mouse-pointer"></i>
+                        <p>Select a project to view details</p>
+                    </div>
+                    <div class="preview-details hidden" id="preview-details">
+                        <h3 id="preview-title">Project Name</h3>
+                        <p id="preview-desc">Description goes here.</p>
+                        <a href="#" id="preview-link" target="_blank" class="github-btn"><i class="fab fa-github"></i> View on GitHub</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <section id="aquarium-view" style="display: none;">
+        <div class="aquarium-scene" id="aquarium-container">
+            <div class="hint-text">Click to feed the fish!</div>
+            </div>
+    </section>
+
+    <audio id="bg-music" loop>
+        <source src="assets/music.mp3" type="audio/mpeg">
+    </audio>
+
+    <script>
+        // --- Core Navigation & Intro Logic ---
+        const enterBtn = document.getElementById('enter-btn');
+        const introScreen = document.getElementById('intro-screen');
+        const desktopView = document.getElementById('desktop');
+        const aquariumView = document.getElementById('aquarium-view');
+        const mainNav = document.getElementById('main-nav');
+        
+        const bgMusic = document.getElementById('bg-music');
+        const musicToggleBtn = document.getElementById('music-toggle');
+
+        enterBtn.addEventListener('click', () => {
+            introScreen.classList.add('fade-out');
+            try { bgMusic.play(); } catch (err) { console.log(err); }
+
+            setTimeout(() => {
+                introScreen.style.display = 'none';
+                desktopView.classList.remove('hidden');
+                desktopView.classList.add('visible');
+                mainNav.style.display = 'flex'; // Show navigation
+                
+                initDoodlePad(); 
+            }, 600);
+        });
+
+        // Toggle to Desktop View
+        document.getElementById('nav-desktop').addEventListener('click', (e) => {
+            e.preventDefault();
+            aquariumView.style.display = 'none';
+            desktopView.style.display = 'block';
+        });
+
+        // Toggle to Aquarium View
+        document.getElementById('nav-aquarium').addEventListener('click', (e) => {
+            e.preventDefault();
+            desktopView.style.display = 'none';
+            aquariumView.style.display = 'flex';
+            initAquarium(); 
+        });
+
+        // Pop "Cool Stuff" window to front
+        document.getElementById('nav-cool-stuff').addEventListener('click', (e) => {
+            e.preventDefault();
+            // Switch to desktop if they are in aquarium
+            aquariumView.style.display = 'none';
+            desktopView.style.display = 'block';
+            // Bring window 3 to front
+            document.querySelectorAll('.os-window').forEach(w => w.style.zIndex = "10");
+            document.getElementById('window3').style.zIndex = "100";
+        });
+
+        // --- Music Logic ---
+        musicToggleBtn.addEventListener('click', () => {
+            if (bgMusic.paused) {
+                bgMusic.play();
+                musicToggleBtn.classList.remove('fa-play-circle');
+                musicToggleBtn.classList.add('fa-pause-circle');
+            } else {
+                bgMusic.pause();
+                musicToggleBtn.classList.remove('fa-pause-circle');
+                musicToggleBtn.classList.add('fa-play-circle');
+            }
+        });
+
+        // --- Mouse Trail ---
+        const colors = ['#f4d3d6', '#f5e0c6', '#f5f0ce', '#d3e2ce', '#c4d7e8', '#e2d4e8'];
+        document.addEventListener('mousemove', function(e) {
+            if (Math.random() > 0.6) {
+                let sparkle = document.createElement('div');
+                sparkle.classList.add('mouse-sparkle');
+                sparkle.style.left = e.pageX + 'px';
+                sparkle.style.top = e.pageY + 'px';
+                sparkle.style.background = colors[Math.floor(Math.random() * colors.length)];
+                document.body.appendChild(sparkle);
+                setTimeout(() => { sparkle.remove(); }, 1000);
+            }
+        });
+
+        // --- Window Dragging ---
+        dragElement(document.getElementById("window1"));
+        dragElement(document.getElementById("window2"));
+        dragElement(document.getElementById("window3"));
+        dragElement(document.getElementById("window4")); 
+
+        function dragElement(elmnt) {
+            var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+            if (document.getElementById(elmnt.id + "-header")) {
+                document.getElementById(elmnt.id + "-header").onmousedown = dragMouseDown;
+            } else {
+                elmnt.onmousedown = dragMouseDown;
+            }
+
+            function dragMouseDown(e) {
+                e = e || window.event;
+                e.preventDefault();
+                document.querySelectorAll('.os-window').forEach(w => w.style.zIndex = "10");
+                elmnt.style.zIndex = "100";
+                pos3 = e.clientX;
+                pos4 = e.clientY;
+                document.onmouseup = closeDragElement;
+                document.onmousemove = elementDrag;
+            }
+
+            function elementDrag(e) {
+                e = e || window.event;
+                e.preventDefault();
+                pos1 = pos3 - e.clientX;
+                pos2 = pos4 - e.clientY;
+                pos3 = e.clientX;
+                pos4 = e.clientY;
+                elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
+                elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
+            }
+
+            function closeDragElement() {
+                document.onmouseup = null;
+                document.onmousemove = null;
+            }
+        }
+
+        // --- File Explorer Logic ---
+        const projectsIcon = document.getElementById('projects-icon');
+        const explorerWindow = document.getElementById('window4');
+        const closeProjectsBtn = document.getElementById('close-projects');
+        const projectItems = document.querySelectorAll('.project-item');
+        const previewEmpty = document.getElementById('preview-empty');
+        const previewDetails = document.getElementById('preview-details');
+        const previewTitle = document.getElementById('preview-title');
+        const previewDesc = document.getElementById('preview-desc');
+        const previewLink = document.getElementById('preview-link');
+
+        projectsIcon.addEventListener('click', () => {
+            explorerWindow.style.display = 'flex';
+            document.querySelectorAll('.os-window').forEach(w => w.style.zIndex = "10");
+            explorerWindow.style.zIndex = "100";
+            explorerWindow.style.animation = 'none';
+            explorerWindow.offsetHeight; 
+            explorerWindow.style.animation = 'popIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) forwards';
+        });
+
+        closeProjectsBtn.addEventListener('click', () => { explorerWindow.style.display = 'none'; });
+
+        projectItems.forEach(item => {
+            item.addEventListener('click', () => {
+                projectItems.forEach(i => i.classList.remove('active'));
+                item.classList.add('active');
+                previewTitle.innerText = item.getAttribute('data-title');
+                previewDesc.innerText = item.getAttribute('data-desc');
+                previewLink.href = item.getAttribute('data-link');
+                previewEmpty.style.display = 'none';
+                previewDetails.classList.remove('hidden');
+            });
+        });
+
+        // --- Doodle Pad Logic ---
+        function initDoodlePad() {
+            const canvas = document.getElementById('doodle-canvas');
+            const ctx = canvas.getContext('2d');
+            const wrapper = document.querySelector('.doodle-wrapper');
+            
+            canvas.width = wrapper.clientWidth;
+            canvas.height = wrapper.clientHeight - 60; 
+
+            let painting = false;
+            let currentColor = '#db8b95'; 
+            let currentSize = 5;
+            let isErasing = false;
+
+            const sizeSlider = document.getElementById('pen-size');
+            sizeSlider.addEventListener('input', (e) => { currentSize = e.target.value; });
+
+            function startPosition(e) { painting = true; draw(e); }
+            function endPosition() { painting = false; ctx.beginPath(); }
+            function draw(e) {
+                if (!painting) return;
+                const rect = canvas.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+
+                ctx.lineWidth = currentSize;
+                ctx.lineCap = 'round';
+                
+                if (isErasing) {
+                    ctx.globalCompositeOperation = 'destination-out';
+                } else {
+                    ctx.globalCompositeOperation = 'source-over';
+                    ctx.strokeStyle = currentColor;
+                }
+
+                ctx.lineTo(x, y);
+                ctx.stroke();
+                ctx.beginPath();
+                ctx.moveTo(x, y);
+            }
+
+            canvas.addEventListener('mousedown', startPosition);
+            canvas.addEventListener('mouseup', endPosition);
+            canvas.addEventListener('mousemove', draw);
+            canvas.addEventListener('mouseleave', endPosition); 
+
+            const swatches = document.querySelectorAll('.swatch');
+            swatches.forEach(swatch => {
+                swatch.addEventListener('click', () => {
+                    swatches.forEach(s => s.classList.remove('active'));
+                    swatch.classList.add('active');
+                    if (swatch.id === 'eraser-tool') {
+                        isErasing = true;
+                    } else {
+                        isErasing = false;
+                        currentColor = swatch.getAttribute('data-color');
+                    }
+                });
+            });
+
+            document.getElementById('clear-canvas').addEventListener('click', () => {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+            });
+        }
+
+        // --- NEW: Custom Image Aquarium Logic ---
+        function initAquarium() {
+            const container = document.getElementById('aquarium-container');
+            if (container.hasAttribute('data-initialized')) return;
+            container.setAttribute('data-initialized', 'true');
+
+            // Your custom image assets
+            const fishAssets = [
+                'assets/seahorse.png', 
+                'assets/squid.png', 
+                'assets/pufferfish.png', 
+                'assets/fish1.png', 
+                'assets/fish2.png'
+            ];
+            const fishes = [];
+            
+            // STRICT BOUNDARIES (850x1080 canvas)
+            // Assuming the wood on sides is ~120px thick. We keep fish within safe zones.
+            const minX = 120;
+            const maxX = 850 - 120 - 80; // 80 is approx fish width
+            const minY = 50;
+            const maxY = 1080 - 100; // Keeping them off the very bottom
+
+            // Spawn one of each custom asset
+            fishAssets.forEach((assetPath) => {
+                let fishImg = document.createElement('img');
+                fishImg.src = assetPath;
+                fishImg.className = 'custom-animal';
+                container.appendChild(fishImg);
+
+                fishes.push({
+                    el: fishImg,
+                    x: minX + Math.random() * (maxX - minX),
+                    y: minY + Math.random() * (maxY - minY),
+                    tx: minX + Math.random() * (maxX - minX),
+                    ty: minY + Math.random() * (maxY - minY),
+                    speed: 0.6 + Math.random() * 1.5
+                });
+            });
+
+            // Food Dropping Mechanism
+            container.addEventListener('mousedown', (e) => {
+                const rect = container.getBoundingClientRect();
+                
+                // Calculate correct click coordinate even if the CSS scaled the container
+                const scaleX = 850 / rect.width;
+                const scaleY = 1080 / rect.height;
+                const clickX = (e.clientX - rect.left) * scaleX;
+                const clickY = (e.clientY - rect.top) * scaleY;
+
+                // Don't drop food if they clicked on the wooden borders
+                if (clickX < minX || clickX > maxX + 80) return;
+
+                let foodEl = document.createElement('div');
+                foodEl.className = 'fish-food';
+                foodEl.style.left = clickX + 'px';
+                foodEl.style.top = clickY + 'px';
+                container.appendChild(foodEl);
+
+                fishes.forEach(f => {
+                    if (Math.random() > 0.2) {
+                        f.tx = clickX; 
+                        f.ty = Math.min(clickY + (Math.random() * 100), maxY); 
+                    }
+                });
+
+                setTimeout(() => { if(foodEl.parentNode) foodEl.remove(); }, 3500);
+            });
+
+            // Animation Loop
+            function animateFish() {
+                fishes.forEach(f => {
+                    let dx = f.tx - f.x;
+                    let dy = f.ty - f.y;
+                    let dist = Math.sqrt(dx*dx + dy*dy);
+
+                    if (dist < 20) {
+                        // Reached destination, pick a new safe spot within boundaries
+                        f.tx = minX + Math.random() * (maxX - minX);
+                        f.ty = minY + Math.random() * (maxY - minY);
+                    } else {
+                        f.x += (dx / dist) * f.speed;
+                        f.y += (dy / dist) * f.speed;
+                    }
+
+                    // Flip horizontally based on direction (some fish look weird flipped, but it works for most!)
+                    let flip = dx > 0 ? 'scaleX(-1)' : 'scaleX(1)';
+                    f.el.style.transform = `translate(${f.x}px, ${f.y}px) ${flip}`;
+                });
+                requestAnimationFrame(animateFish);
+            }
+            animateFish();
+        }
+    </script>
+</body>
+</html>
