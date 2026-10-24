@@ -562,13 +562,13 @@ input[type="range"]::-webkit-slider-runnable-track {
 
 .aquarium-scene {
     position: relative;
-    /* Exactly matches your image asset dimensions */
+    /* Exactly matches image asset dimensions */
     width: 850px;
     height: 1080px;
     background: url('../assets/aquarium.png') no-repeat center center;
     background-size: cover;
     
-    /* This automatically scales the 850x1080 scene down to perfectly fit any laptop or monitor screen without breaking the boundaries! */
+    /* This automatically scales the 850x1080 scene down to fit any laptop or monitor screen without breaking the boundaries */
     transform: scale(min(calc(100vw / 900), calc(80vh / 1080)));
     transform-origin: center center;
     
@@ -582,12 +582,12 @@ input[type="range"]::-webkit-slider-runnable-track {
 .custom-animal {
     position: absolute;
     top: 0; left: 0;
-    width: 90px; /* Standardizes the size of your PNGs */
+    width: 90px; /* Standardizes the size of pngs */
     height: auto;
     filter: drop-shadow(0 10px 15px rgba(0,0,0,0.2));
     animation: float-wiggle 2s ease-in-out infinite;
     z-index: 10;
-    pointer-events: none; /* So you can click the water behind them */
+    pointer-events: none; /* So can click the water behind them */
 }
 
 @keyframes float-wiggle {

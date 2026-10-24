@@ -192,7 +192,7 @@
     </audio>
 
     <script>
-        // --- Core Navigation & Intro Logic ---
+        // core nav/ intro logi
         const enterBtn = document.getElementById('enter-btn');
         const introScreen = document.getElementById('intro-screen');
         const desktopView = document.getElementById('desktop');
@@ -210,20 +210,18 @@
                 introScreen.style.display = 'none';
                 desktopView.classList.remove('hidden');
                 desktopView.classList.add('visible');
-                mainNav.style.display = 'flex'; // Show navigation
+                mainNav.style.display = 'flex';
                 
                 initDoodlePad(); 
             }, 600);
         });
 
-        // Toggle to Desktop View
         document.getElementById('nav-desktop').addEventListener('click', (e) => {
             e.preventDefault();
             aquariumView.style.display = 'none';
             desktopView.style.display = 'block';
         });
 
-        // Toggle to Aquarium View
         document.getElementById('nav-aquarium').addEventListener('click', (e) => {
             e.preventDefault();
             desktopView.style.display = 'none';
@@ -231,18 +229,16 @@
             initAquarium(); 
         });
 
-        // Pop "Cool Stuff" window to front
         document.getElementById('nav-cool-stuff').addEventListener('click', (e) => {
             e.preventDefault();
             // Switch to desktop if they are in aquarium
             aquariumView.style.display = 'none';
             desktopView.style.display = 'block';
-            // Bring window 3 to front
             document.querySelectorAll('.os-window').forEach(w => w.style.zIndex = "10");
             document.getElementById('window3').style.zIndex = "100";
         });
 
-        // --- Music Logic ---
+        // music
         musicToggleBtn.addEventListener('click', () => {
             if (bgMusic.paused) {
                 bgMusic.play();
@@ -255,7 +251,7 @@
             }
         });
 
-        // --- Mouse Trail ---
+        // sparkle mouse trail
         const colors = ['#f4d3d6', '#f5e0c6', '#f5f0ce', '#d3e2ce', '#c4d7e8', '#e2d4e8'];
         document.addEventListener('mousemove', function(e) {
             if (Math.random() > 0.6) {
@@ -269,7 +265,7 @@
             }
         });
 
-        // --- Window Dragging ---
+        // window dragging logic
         dragElement(document.getElementById("window1"));
         dragElement(document.getElementById("window2"));
         dragElement(document.getElementById("window3"));
@@ -311,7 +307,7 @@
             }
         }
 
-        // --- File Explorer Logic ---
+        // file explorer logic
         const projectsIcon = document.getElementById('projects-icon');
         const explorerWindow = document.getElementById('window4');
         const closeProjectsBtn = document.getElementById('close-projects');
@@ -345,7 +341,7 @@
             });
         });
 
-        // --- Doodle Pad Logic ---
+        // doodle pad logic
         function initDoodlePad() {
             const canvas = document.getElementById('doodle-canvas');
             const ctx = canvas.getContext('2d');
@@ -410,7 +406,7 @@
             });
         }
 
-        // --- NEW: Custom Image Aquarium Logic ---
+        // aquarium logic
         function initAquarium() {
             const container = document.getElementById('aquarium-container');
             if (container.hasAttribute('data-initialized')) return;
@@ -426,14 +422,14 @@
             ];
             const fishes = [];
             
-            // STRICT BOUNDARIES (850x1080 canvas)
+            // 850x1080
             // Assuming the wood on sides is ~120px thick. We keep fish within safe zones.
             const minX = 120;
             const maxX = 850 - 120 - 80; // 80 is approx fish width
             const minY = 50;
-            const maxY = 1080 - 100; // Keeping them off the very bottom
+            const maxY = 1080 - 100; // keep them off the bottom
 
-            // Spawn one of each custom asset
+            // spawn one of animal
             fishAssets.forEach((assetPath) => {
                 let fishImg = document.createElement('img');
                 fishImg.src = assetPath;
@@ -450,17 +446,16 @@
                 });
             });
 
-            // Food Dropping Mechanism
+            // food dropping mech
             container.addEventListener('mousedown', (e) => {
                 const rect = container.getBoundingClientRect();
                 
-                // Calculate correct click coordinate even if the CSS scaled the container
                 const scaleX = 850 / rect.width;
                 const scaleY = 1080 / rect.height;
                 const clickX = (e.clientX - rect.left) * scaleX;
                 const clickY = (e.clientY - rect.top) * scaleY;
 
-                // Don't drop food if they clicked on the wooden borders
+                // don't drop food if clicked on the wooden borders
                 if (clickX < minX || clickX > maxX + 80) return;
 
                 let foodEl = document.createElement('div');
@@ -479,7 +474,7 @@
                 setTimeout(() => { if(foodEl.parentNode) foodEl.remove(); }, 3500);
             });
 
-            // Animation Loop
+            // fish animation Loop
             function animateFish() {
                 fishes.forEach(f => {
                     let dx = f.tx - f.x;
@@ -487,7 +482,6 @@
                     let dist = Math.sqrt(dx*dx + dy*dy);
 
                     if (dist < 20) {
-                        // Reached destination, pick a new safe spot within boundaries
                         f.tx = minX + Math.random() * (maxX - minX);
                         f.ty = minY + Math.random() * (maxY - minY);
                     } else {
@@ -495,7 +489,6 @@
                         f.y += (dy / dist) * f.speed;
                     }
 
-                    // Flip horizontally based on direction (some fish look weird flipped, but it works for most!)
                     let flip = dx > 0 ? 'scaleX(-1)' : 'scaleX(1)';
                     f.el.style.transform = `translate(${f.x}px, ${f.y}px) ${flip}`;
                 });
